@@ -74,8 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         while(a>=80){
 
                             String b = delta.substring(a-80,a);
-                            if(b.indexOf("http")!=-1 && b.indexOf("title=")!=-1){
-                                selectable.add(b.substring(b.indexOf("http"),b.indexOf("title=")-3));
+                            if(b.contains("http") && b.contains("title=")){
 
                                 if(!contain){
                                     contain=true;
@@ -84,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                                     index = 0;
                                 }
 
+                                selectable.add(b.substring(b.indexOf("http"),b.indexOf("title=")-3));
                                 selectable_writer.add(sequence[i]);
                             }
                             delta = delta.substring(a+5);
