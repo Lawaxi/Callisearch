@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.spreada.utils.chinese.ZHConverter;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     EditText text;
     ImageView image;
     TextView debug;
+    Spinner type;
     public static final ArrayList<String> selectable = new ArrayList<>();
     public static final ArrayList<String> selectable_writer = new ArrayList<>();
     public static int index = 0;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         text = (EditText) findViewById(R.id.editText);
         image = (ImageView) findViewById(R.id.imageView);
         debug = (TextView) findViewById(R.id.textView);
+        type = (Spinner) findViewById(R.id.spinner);
 
         search = new Runnable(){
             @Override
@@ -63,14 +66,16 @@ public class MainActivity extends AppCompatActivity {
                 return;
 
                 simplify();
-                String out = getInputText(url.replace("0",toUnicode(getText())));
+                int type = getType();
+                String out = getInputText(url.replace("word",toUnicode(getText())).replace("type",String.valueOf(getTypeId(type))));
+
                 if(!out.equals("")) {
 
                     boolean contain = false;
 
-                    for(int i=0;i<sequence.length;i++){
+                    for(int i=0;i<sequence[type].length;i++){
                         String delta = out;
-                        int a = delta.indexOf(sequence[i]);
+                        int a = delta.indexOf(sequence[type][i]);
                         while(a>=80){
 
                             String b = delta.substring(a-80,a);
@@ -84,10 +89,10 @@ public class MainActivity extends AppCompatActivity {
                                 }
 
                                 selectable.add(b.substring(b.indexOf("http"),b.indexOf("title=")-3));
-                                selectable_writer.add(sequence[i]);
+                                selectable_writer.add(sequence[type][i]);
                             }
                             delta = delta.substring(a+5);
-                            a = delta.indexOf(sequence[i]);
+                            a = delta.indexOf(sequence[type][i]);
                         }
                     }
 
@@ -168,12 +173,48 @@ public class MainActivity extends AppCompatActivity {
         return text.getText().toString().trim();
     }
 
+    private int getType(){
+        String a = type.getSelectedItem().toString();
+        switch (a){
+            case "篆书":
+                return 1;
+            case "行书":
+                return 2;
+            case "楷书":
+                return 3;
+            case "草书":
+                return 4;
+            default:
+                return 0;
+        }
+    }
+
+    private int getTypeId(int type){
+        switch (type) {
+            case 1:
+                return 5;
+            case 2:
+                return 2;
+            case 3:
+                return 1;
+            case 4:
+                return 3;
+            default:
+                return 4;
+        }
+    }
+
     private void simplify(){
         text.setText(ZHConverter.convert(text.getText().toString(),ZHConverter.SIMPLIFIED));
     }
 
-    private static final String url = "http://www.sfds.cn/0/4/";
-    public static final String[] sequence = {"邓石如","何绍基","曹全碑","唐玄宗","吴让之","樊敏碑"};
+    private static final String url = "http://www.sfds.cn/word/type/";
+    public static final String[][] sequence =
+            {{"邓石如","何绍基","曹全碑","唐玄宗","吴让之","樊敏碑"},//隶书
+                    {"邓石如"},//篆书
+                    {"王羲之","赵孟頫"},//行书
+                    {"颜真卿","柳公权","赵佶"},//楷书
+                    {"怀素","米芾","王羲之","赵孟頫"}};//草书
 
     private static final String getInputText (String path){
         InputStream  inputStream = getInputStream(path);

@@ -9,29 +9,33 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
-        android:layout_height="42dp"
+        android:layout_height="0dp"
         android:layout_marginStart="9dp"
         android:layout_marginLeft="9dp"
         android:layout_marginEnd="9dp"
         android:layout_marginRight="9dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="15dp"
         android:text="紧密团结在以习近平同志为核心的党中央"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="95dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="56dp"
         android:layout_marginLeft="56dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
         android:layout_marginBottom="217dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="习"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/spinner"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -71,5 +75,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="475dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginRight="39dp"
+        android:layout_marginBottom="168dp"
+        android:entries="@array/callitype"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editText"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

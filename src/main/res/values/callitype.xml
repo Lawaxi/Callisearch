@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="callitype">
+        <item>隶书</item>
+        <item>篆书</item>
+        <item>行书</item>
+        <item>楷书</item>
+        <item>草书</item>
+    </string-array>
+</resources>
